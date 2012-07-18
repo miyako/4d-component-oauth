@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+	<meta http-equiv="content-language" content="ja" />
+	<title>POST statuses/filter</title>
+</head>
+
+<body>
+
+<script type="text/javascript"><!--
+
+    var _responseText = '';
+    var _isFilterEnabled = false;
+    var ajax = new XMLHttpRequest();
+    
+function responseText(){
+    return _responseText;
+}
+    
+function setFilterEnabled(enabled){
+    _isFilterEnabled = enabled;
+    return enabled;
+}
+
+function stream(method,url,params,authorization){
+    
+    ajax.abort();
+    ajax.open(method, url, true);    
+    ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=utf-8");
+    ajax.setRequestHeader("Authorization", authorization);    
+    ajax.send(params);
+    
+    ajax.onreadystatechange = function(){
+     
+        _responseText = ajax.responseText; 
+        
+        if(_isFilterEnabled){
+            switch(ajax.readyState)
+            {
+                case 0:
+                location.href= 'ajax://onreadystatechange/uninitialized';			
+                break;
+                
+                case 1:
+                location.href= 'ajax://onreadystatechange/loading';			
+                break;
+                
+                case 2:
+                location.href= 'ajax://onreadystatechange/loaded';			
+                break;
+                
+                case 3:         
+                location.href= 'ajax://onreadystatechange/interactive';	
+                break;
+                
+                case 4:
+                location.href= 'ajax://onreadystatechange/complete';			
+                break;            
+            }                
+        }
+    }
+}
+
+//--></script>
+    
+</body>
+
+</html>
